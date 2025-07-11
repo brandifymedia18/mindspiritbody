@@ -21,6 +21,7 @@ import {
   X,
 } from "lucide-react"
 
+
 export default function VDotHealingWebsite() {
   const [selectedService, setSelectedService] = useState("")
   const [selectedDuration, setSelectedDuration] = useState("")
@@ -33,6 +34,8 @@ export default function VDotHealingWebsite() {
     preferredTime: "",
     message: "",
   })
+  const [rating, setRating] = useState(0)
+  const [feedback, setFeedback] = useState("")
 
   const services = [
     { name: "Migraine Relief", price: "₹3000-₹8000", duration: "7-30 days" },
@@ -59,6 +62,11 @@ export default function VDotHealingWebsite() {
     window.open(`https://wa.me/919137762871?text=${encodeURIComponent(message)}`, "_blank")
   }
 
+
+const [submittedFeedbacks, setSubmittedFeedbacks] = useState<
+  { rating: number; message: string }[]
+>([]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#E0B3FF] via-white to-[#A5D6A7]">
       {/* Header */}
@@ -74,7 +82,7 @@ export default function VDotHealingWebsite() {
             {/* Desktop Nav */}
             <nav className="hidden md:flex space-x-6">
               <a href="#home" className="hover:text-[#C6FF00] transition-colors">Home</a>
-              <a href="#services" className="hover:text-[#C6FF00] transition-colors">Services</a>
+              <a href="#services" className="hover:text-[#C6FF00] transition-colors">Benefits</a>
               <a href="#pricing" className="hover:text-[#C6FF00] transition-colors">Pricing</a>
               <a href="#booking" className="hover:text-[#C6FF00] transition-colors">Book Now</a>
               <a href="#faq" className="hover:text-[#C6FF00] transition-colors">FAQ</a>
@@ -506,6 +514,74 @@ export default function VDotHealingWebsite() {
   </div>
 </section>
 
+{/* Rate Us Section */}
+<section id="rate-us" className="py-16 px-4 bg-white/70">
+  <div className="container mx-auto max-w-xl text-center">
+    <h3 className="text-4xl font-bold text-gray-800 mb-6">Rate Your Experience</h3>
+    <p className="text-gray-600 mb-6">We’d love to hear your feedback. Please rate us and share your thoughts!</p>
+
+    {/* Star Rating */}
+    <div className="flex justify-center mb-4">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <svg
+          key={star}
+          onClick={() => setRating(star)}
+          xmlns="http://www.w3.org/2000/svg"
+          fill={rating >= star ? "#f59e0b" : "none"}
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          className="w-10 h-10 cursor-pointer text-yellow-400 hover:scale-110 transition-transform"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.518 4.674a1 1 0 00.95.69h4.914c.969 0 1.371 1.24.588 1.81l-3.975 2.89a1 1 0 00-.364 1.118l1.518 4.674c.3.921-.755 1.688-1.54 1.118l-3.975-2.89a1 1 0 00-1.176 0l-3.975 2.89c-.784.57-1.838-.197-1.539-1.118l1.518-4.674a1 1 0 00-.364-1.118l-3.975-2.89c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.518-4.674z"
+          />
+        </svg>
+      ))}
+    </div>
+
+    {/* Feedback Textarea */}
+    <textarea
+      placeholder="Write your feedback (optional)"
+      value={feedback}
+      onChange={(e) => setFeedback(e.target.value)}
+      className="w-full border border-gray-300 rounded px-4 py-2 mb-4 resize-none"
+      rows={3}
+    />
+
+    {/* Submit Button */}
+    <Button
+      className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-6 py-2 hover:from-pink-600 hover:to-rose-600"
+      onClick={() => {
+        const message = `Rating: ${rating} Stars\nFeedback: ${feedback || "N/A"}`;
+        window.open(`https://wa.me/919137762871?text=${encodeURIComponent(message)}`, "_blank");
+      }}
+      disabled={rating === 0}
+    >
+      Submit Rating
+    </Button>
+
+    {/* Sample Reviews */}
+    <div className="mt-12">
+      <h4 className="text-2xl font-semibold text-gray-700 text-center mb-6">What Others Are Saying</h4>
+      <div className="grid gap-4 text-left">
+        {[
+          "Absolutely transformative experience. I feel calmer and more in control.",
+          "The sessions helped me reduce my anxiety significantly. Highly recommended!",
+          "Professional, relaxing, and truly healing. Thank you!",
+          "I was skeptical at first, but now I'm a believer. Great results.",
+        ].map((review, idx) => (
+          <div key={idx} className="bg-white border border-pink-200 rounded-lg p-4 shadow-sm">
+            <p className="text-gray-600 italic">“{review}”</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 
@@ -622,7 +698,7 @@ export default function VDotHealingWebsite() {
             <a href="#home" className="hover:text-pink-400 transition-colors">Home</a>
           </li>
           <li>
-            <a href="#services" className="hover:text-pink-400 transition-colors">Services</a>
+            <a href="#services" className="hover:text-pink-400 transition-colors">Benefits</a>
           </li>
           <li>
             <a href="#pricing" className="hover:text-pink-400 transition-colors">Pricing</a>
@@ -642,7 +718,7 @@ export default function VDotHealingWebsite() {
         <div className="space-y-2 text-sm text-gray-300">
           <p className="flex items-center gap-2">
             <Phone className="w-4 h-4" />
-            +91 98765 43210
+            +91 9137762871
           </p>
           <p className="flex items-center gap-2">
             <MessageCircle className="w-4 h-4" />
