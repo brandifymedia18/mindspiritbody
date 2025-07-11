@@ -544,7 +544,7 @@ const [submittedFeedbacks, setSubmittedFeedbacks] = useState<
 
     {/* Feedback Textarea */}
     <textarea
-      placeholder="Write your feedback (optional)"
+      placeholder="Write your feedback"
       value={feedback}
       onChange={(e) => setFeedback(e.target.value)}
       className="w-full border border-gray-300 rounded px-4 py-2 mb-4 resize-none"
